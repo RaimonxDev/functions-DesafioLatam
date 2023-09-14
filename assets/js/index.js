@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
   two.addEventListener('click', () => {
     createProperties(two, 'black', 'update')
   })
-
   third.addEventListener('click', () => {
     createProperties(third, 'black', 'update')
   })
