@@ -2,4 +2,10 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+
+}
+
+#box {
+  background-color: blue;
+  border:  1px solid black;
 }
