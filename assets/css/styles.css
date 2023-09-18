@@ -5,6 +5,13 @@
 
 }
 
+#ele1 {
+  height: 200px;
+  width: 200px;
+  background-color: transparent;
+  border:  1px solid black;
+}
+
 #box {
   background-color: blue;
   border:  1px solid black;

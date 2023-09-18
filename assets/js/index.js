@@ -1,93 +1,65 @@
-const box1 = document.querySelector('#one')
-const box2 = document.querySelector('#two')
-const box3 = document.querySelector('#third')
-const box4 = document.querySelector('#fourth')
-const boxKey = document.querySelector('#key')
-
-
-function cambiarColor(box, color, borderColor) {
-  box.style.border = `1px solid ${borderColor}`
-  box.style.backgroundColor = color
-}
-
-function dimensiones(elementoHtml, alto = '200px', ancho = '200px') {
-  elementoHtml.style.height = alto
-  elementoHtml.style.width = ancho
-}
-// box1
-dimensiones(box1)
-cambiarColor(box1, 'blue')
-
-// box 2
-dimensiones(box2)
-cambiarColor(box2, 'red')
-
-// box 3
-dimensiones(box3)
-cambiarColor(box3, 'green')
-
-// box 4 
-dimensiones(box4)
-cambiarColor(box4, 'yellow')
-
-dimensiones(boxKey)
-cambiarColor(boxKey, 'white', 'black')
-
-
-//box1.addEventListener('click' , function() {})
-box1.addEventListener('click', () => {
-  cambiarColor(box1, 'black')
-})
-box2.addEventListener('click', () => {
-  cambiarColor(box2, 'black')
-})
-box3.addEventListener('click', () => {
-  cambiarColor(box3, 'black')
-})
-box4.addEventListener('click', () => {
-  cambiarColor(box4, 'black')
-})
-
-// DIV KEY 3.3
-const creacion = (letra, box) => {
-  if (letra === 'a') {
-    cambiarColor(box, 'pink')
-  }
-  if (letra === 's') {
-    cambiarColor(box, 'orange')
-  }
-  if (letra === 'd') {
-    cambiarColor(box, 'skyblue')
-  }
-}
-
+const one = document.querySelector('#one')
+const two = document.querySelector('#two')
+const third = document.querySelector('#third')
+const fourth = document.querySelector('#fourth')
+const key = document.querySelector('#key')
 const container = document.querySelector('.container')
 
-const createDiv = (letra) => {
-  if (letra === 'q') {
-    const div = document.createElement('div')
-    dimensiones(div)
-    cambiarColor(div, 'purple')
-    container.appendChild(div)
-  }
-  if (letra === 'w') {
-    const div = document.createElement('div')
-    dimensiones(div)
-    cambiarColor(div, 'gray')
-    container.appendChild(div)
-  }
-  if (letra === 'e') {
-    const div = document.createElement('div')
-    dimensiones(div)
-    cambiarColor(div, 'brown')
-    container.appendChild(div)
-  }
-}
+document.addEventListener('DOMContentLoaded', () => {
+  createBoxProps(one, 'blue')
+  createBoxProps(two, 'red')
+  createBoxProps(third, 'pink')
+  createBoxProps(fourth, 'yellow')
+  createBoxProps(key, 'white')
 
-document.addEventListener('keydown', function (event) {
-  creacion(event.key, boxKey)
-  createDiv(event.key)
+  one.addEventListener('click', () => {
+    createBoxProps(one, 'black', 'update')
+  })
+  two.addEventListener('click', () => {
+    createBoxProps(two, 'black', 'update')
+  })
+  third.addEventListener('click', () => {
+    createBoxProps(third, 'black', 'update')
+  })
+  fourth.addEventListener('click', () => {
+    createBoxProps(fourth, 'black', 'update')
+  })
 })
 
 
+const createBoxProps = (ele, color, action = 'create') => {
+  if (action === 'update') {
+    return ele.style.backgroundColor = color
+  }
+  ele.style.height = '200px'
+  ele.style.width = '200px'
+  ele.style.backgroundColor = color
+  ele.style.borderRadius = '0.5rem'
+  ele.style.border = color === 'white' ? '1px solid #000' : 'none'
+}
 
+const onKeyboardEvent = (e, action) => {
+  action === 'create' ? createBox(e) : updateColor(e)
+}
+
+updateColor = (e) => {
+  if (e.key === 'a') { createBoxProps(key, 'pink', 'update') }
+  if (e.key === 's') { createBoxProps(key, 'orange', 'update') }
+  if (e.key === 'd') { createBoxProps(key, 'aqua', 'update') }
+}
+
+createBox = (e) => {
+  let color = ''
+  if (e.key === 'q') { color = 'purple' }
+  if (e.key === 'w') { color = 'gray' }
+  if (e.key === 'e') { color = 'brown' }
+  if (!color) return
+  const box = document.createElement('div')
+  box.setAttribute('id', 'box')
+  createBoxProps(box, color)
+  container.appendChild(box)
+}
+document.addEventListener('keydown', (event) => {
+  onKeyboardEvent(event, 'create')
+  onKeyboardEvent(event, 'update')
+})
